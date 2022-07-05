@@ -1,37 +1,27 @@
 package main
 
 import(
-	"fmt"
-	// "net/http"
-	// "github.com/labstack/echo/v4"
-	"github.com/beego/beego/v2/client/orm"
-	_ "github.com/go-sql-driver/mysql"
+	"net/http"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-func init() {
-	orm.RegisterDriver("mysql", orm.DRMySQL)
+func main() {
+	// Echo instance 
+	e := echo.New()
 
-	err := orm.RegisterDataBase("default", "mysql", "root:123456@/echotest?charset=utf8")
-	if err != nil{
-		fmt.Println("Failed to connect database", err)
-	}
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	// Database alias
-	name := "default"
+	// Routes
+	e.GET("/", hello)
 
-	// Drop table and re-create
-	force := true
-
-	// Print log
-	verbose := true
-
-	// Error
-	err = orm.RunSyncdb(name, force, verbose)
-	if err != nil{
-		fmt.Println("Failed to run sync", err)
-	}
+	// Start server
+	e.Logger.Fatal(e.Start(":3000"))
 }
 
-func main() {
-	fmt.Println("Hello, world.")
+// Handler
+func hello(c echo.Context) error {
+	return c.String(http.StatusOK, "Hello, World")
 }
