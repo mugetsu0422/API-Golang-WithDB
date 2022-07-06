@@ -25,6 +25,7 @@ func GetStudent(c echo.Context) error {
 	db := storage.GetDBInstance()
 	student := &model.Students{}
 
+	// Check if exist
 	id, _ := strconv.Atoi(c.Param("id"))
 	if err := db.Take(&student, id).Error; err != nil {
 		return c.JSON(http.StatusNotFound, "Not found student")
@@ -68,6 +69,21 @@ func UpdateStudent(c echo.Context) error {
 
 	db.Save(student)
 	return c.JSON(http.StatusOK, student)
+}
+
+// DELETE API
+func DeleteStudent(c echo.Context) error {
+	db := storage.GetDBInstance()
+	student := &model.Students{}
+
+	// Check if exist
+	id, _ := strconv.Atoi(c.Param("id"))
+	if err := db.Take(&student, id).Error; err != nil {
+		return c.JSON(http.StatusNotFound, "Not found student")
+	}
+
+	db.Delete(student, id)
+	return c.JSON(http.StatusOK, student) 
 }
 
 func GetRepoStudents() ([]model.Students, error) {
