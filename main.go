@@ -18,7 +18,8 @@ func main() {
 
 	// Routes
 	e.GET("/", hello)
-	e.GET("/students", controller.GetStudents)
+	e.GET("/students", controller.GetAllStudents)
+	e.GET("/students/:id", controller.GetStudent)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))

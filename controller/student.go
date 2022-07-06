@@ -4,13 +4,31 @@ import (
 	"API-Golang-WithDB/model"
 	"API-Golang-WithDB/storage"
 	"net/http"
-
+	"strconv"
 	"github.com/labstack/echo/v4"
 )
 
-func GetStudents(c echo.Context) error {
-	students, _ := GetRepoStudents() 
+func GetAllStudents(c echo.Context) error {
+	db := storage.GetDBInstance()
+	students := []model.Students{}
+
+	if err := db.Find(&students).Error; err != nil {
+		return c.JSON(http.StatusNotFound, "Not found student")
+	}
+
 	return c.JSON(http.StatusOK, students)
+}
+
+func GetStudent(c echo.Context) error {
+	db := storage.GetDBInstance()
+	student := model.Students{}
+
+	id, _ := strconv.Atoi(c.Param("id"))
+	if err := db.Find(&student, id).Error; err != nil {
+		return c.JSON(http.StatusNotFound, "Not found student")
+	}
+
+	return c.JSON(http.StatusOK, student)
 }
 
 func GetRepoStudents() ([]model.Students, error) {
