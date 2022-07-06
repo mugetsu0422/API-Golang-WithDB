@@ -4,12 +4,13 @@ import(
 	"net/http"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"API-Golang-WithDB/storage"
 )
 
 func main() {
 	// Echo instance 
 	e := echo.New()
-
+	storage.NewDB()
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
