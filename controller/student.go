@@ -5,6 +5,7 @@ import (
 	"API-Golang-WithDB/storage"
 	"net/http"
 	"strconv"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -29,6 +30,22 @@ func GetStudent(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, student)
+}
+
+func CreateStudent(c echo.Context) error {
+	db := storage.GetDBInstance()
+	temp := &model.Students{}
+	db.Last(&temp)
+	student := &model.Students{
+		Id: temp.Id + 1,
+	}
+
+	if err := c.Bind(student); err != nil {
+		return err
+	}
+
+	db.Create(&student)
+	return c.JSON(http.StatusCreated, student)
 }
 
 func GetRepoStudents() ([]model.Students, error) {
