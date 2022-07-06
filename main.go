@@ -3,8 +3,9 @@ package main
 import(
 	"net/http"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	//"github.com/labstack/echo/v4/middleware"
 	"API-Golang-WithDB/storage"
+	"API-Golang-WithDB/controller"
 )
 
 func main() {
@@ -12,11 +13,12 @@ func main() {
 	e := echo.New()
 	storage.NewDB()
 	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	//e.Use(middleware.Logger())
+	//e.Use(middleware.Recover())
 
 	// Routes
 	e.GET("/", hello)
+	e.GET("/students", controller.GetStudents)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))
