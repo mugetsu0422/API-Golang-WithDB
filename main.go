@@ -21,6 +21,7 @@ func main() {
 	e.GET("/students", controller.GetAllStudents)
 	e.GET("/students/:id", controller.GetStudent)
 	e.POST("/students", controller.CreateStudent)
+	e.PUT("/students/:id", controller.UpdateStudent)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))
