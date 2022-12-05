@@ -17,17 +17,12 @@ func main() {
 	//e.Use(middleware.Recover())
 
 	// Routes
-	// e.GET("/", hello)
-	// e.GET("/students", controller.GetAllStudents)
-	// e.GET("/students/:id", controller.GetStudent)
-	// e.POST("/students", controller.CreateStudent)
-	// e.PUT("/students/:id", controller.UpdateStudent)
-	// e.DELETE("/students/:id", controller.DeleteStudent)
-
-	e.GET("/user/forgetpassword", controller.ForgetPassword)
-	e.POST("/like", controller.LikeSong)
-	e.DELETE("like", controller.DislikeSong)
-	e.GET("/song", controller.GetSong)
+	e.GET("/", hello)
+	e.GET("/students", controller.GetAllStudents)
+	e.GET("/students/:id", controller.GetStudent)
+	e.POST("/students", controller.CreateStudent)
+	e.PUT("/students/:id", controller.UpdateStudent)
+	e.DELETE("/students/:id", controller.DeleteStudent)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":3000"))

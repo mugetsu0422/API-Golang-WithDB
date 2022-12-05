@@ -5,9 +5,9 @@ import(
 )
 
 const (
-	DBUser = "root"
-	DBPassword = "123456"
-	DBName = "musicapp"
+	DBUser = "user"
+	DBPassword = "user"
+	DBName = "mydb"
 	DBHost = "localhost"
 	DBPort = "3306"
 	DBType = "mysql"
